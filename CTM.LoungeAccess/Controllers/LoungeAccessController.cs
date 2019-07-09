@@ -4,6 +4,7 @@ using System.Drawing;
 using System.DrawingCore;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CTM.LoungeAccess.Models;
 using CTM.LoungeAccess.Services;
 using Microsoft.AspNetCore.Http;
@@ -19,13 +20,19 @@ namespace CTM.LoungeAccess.Controllers
     [ApiController]
     public class LoungeAccessController : ControllerBase
     {
+        private readonly ILoungeSearchService _loungeSearchService;
+
+        public LoungeAccessController(IMapper mapper)
+        {
+            _loungeSearchService = new LoungeSearchService(mapper);
+
+        }
         // GET: api/LoungeAccess/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
             var lacs = new List<LoungeAccessCode>();
-            var service = new LoungeSearchService();
-            var lounges = service.GetSearchResults(new SearchRequest() { AirportCode = "SYD", Amenities = new List<string>() });
+            var lounges = _loungeSearchService.GetSearchResults(new SearchRequest() { AirportCode = "SYD", Amenities = new List<string>() });
             foreach(var lounge in lounges)
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -50,8 +57,7 @@ namespace CTM.LoungeAccess.Controllers
         [HttpPost("{id}")]
         public ActionResult Post(int id)
         {
-            var service = new LoungeSearchService();
-            var lounge = service.GetById(id);
+            var lounge = _loungeSearchService.GetById(id);
             if (lounge == null)
             {
                 BadRequest($"Could not match lounge for ID {id}");

@@ -1,4 +1,5 @@
-﻿using CTM.LoungeAccess.Models;
+﻿using AutoMapper;
+using CTM.LoungeAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace CTM.LoungeAccess.Services
     public class LoungeSearchService : ILoungeSearchService
     {
         private readonly IGooglePlacesService _googlePlacesService;
+        private readonly IMapper _mapper;
 
-        public LoungeSearchService()
+        public LoungeSearchService(IMapper mapper)
         {
             _googlePlacesService = new GooglePlacesService();
+            _mapper = mapper;
         }
 
         public Lounge GetById(int loungeId)
@@ -57,9 +60,12 @@ namespace CTM.LoungeAccess.Services
         {
             var queryString = $"{searchRequest.AirportCode} airport lounges";
 
-            await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+            var response = await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+            return _mapper.Map<IEnumerable<Lounge>>(response.Results);
+            //response.Results.FirstOrDefault();
 
-            return await Task.FromResult(new List<Lounge>());
+            
+            //return await Task.FromResult(new List<Lounge>());
         }
 
         private IEnumerable<Lounge> GetLounges()
@@ -75,9 +81,10 @@ namespace CTM.LoungeAccess.Services
                     Directions = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. ",
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
-                    OpeningHours = GenerateOpeningHours("05:00", "23:00"),
-                    Amenities = GetAmenitiesById(1)
-                },
+                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    },
                 new Lounge
                 {
                     Id = 2,
@@ -86,8 +93,9 @@ namespace CTM.LoungeAccess.Services
                     Terminal ="T1",
                     ImageUrl="https://www.americanexpress.com/content/dam/amex/idc/benefits/viajes/SYD_29671-AMX-Airport-016.jpg",
                     Rating =4,
-                    OpeningHours = GenerateOpeningHours("09:00","22:30"),
-                    Amenities = GetAmenitiesById(2)
+                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
                 },
                 new Lounge
                 {
@@ -98,8 +106,9 @@ namespace CTM.LoungeAccess.Services
                     Directions="",
                     ImageUrl="https://media.etihad.com/cms/webimage/BaseImage_Standard/Documents/Lounges/arrivals_standard.jpg.jpg",
                     Rating=5,
-                    OpeningHours = GenerateOpeningHours("10:00","23:30"),
-                    Amenities = GetAmenitiesById(3)
+                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
                 }
             };
         }

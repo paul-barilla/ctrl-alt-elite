@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GoogleApi;
 using GoogleApi.Entities.Places;
+using PlacesTextSearchResponse = GoogleApi.Entities.Places.Search.Text.Response.PlacesTextSearchResponse;
 
 namespace CTM.LoungeAccess.Services
 {
@@ -14,7 +15,7 @@ namespace CTM.LoungeAccess.Services
 
         }
         
-        public async Task GetAirportLoungesFromTextQueryAsync(string query)
+        public async Task<PlacesTextSearchResponse> GetAirportLoungesFromTextQueryAsync(string query)
         {
             var request = new GoogleApi.Entities.Places.Search.Text.Request.PlacesTextSearchRequest()
             {              
@@ -22,12 +23,12 @@ namespace CTM.LoungeAccess.Services
                 Key = "AIzaSyAa-Cb3X-JCgyiUWJ_W3_npAc-T5tI0xjg"
             };
 
-            var response = await GooglePlaces.TextSearch.QueryAsync(request);
+            return await GooglePlaces.TextSearch.QueryAsync(request);
         }
     }
 
     public interface IGooglePlacesService
     {
-        Task GetAirportLoungesFromTextQueryAsync(string query);
+        Task<PlacesTextSearchResponse> GetAirportLoungesFromTextQueryAsync(string query);
     }
 }

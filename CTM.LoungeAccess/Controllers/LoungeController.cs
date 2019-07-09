@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CTM.LoungeAccess.Models;
 using CTM.LoungeAccess.Services;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,9 @@ namespace CTM.LoungeAccess.Controllers
     {
         private readonly ILoungeSearchService _loungeSearchService;
 
-        public LoungeController()
+        public LoungeController(IMapper mapper)
         {
-            _loungeSearchService = new LoungeSearchService();
+            _loungeSearchService = new LoungeSearchService(mapper);
         }
         // GET: api/Lounge
         [HttpGet]

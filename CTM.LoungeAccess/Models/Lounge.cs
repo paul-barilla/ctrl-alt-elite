@@ -13,9 +13,11 @@ namespace CTM.LoungeAccess.Models
         public string Terminal { get; set; }
         public string Directions { get; set; }
         public string ImageUrl { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public IEnumerable<OpeningTime> OpeningHours { get; set; }
-        public string AccessLink { get; set; }
+        public int AccessLink { get; set; }
         public IEnumerable<string> Amenities { get; set; }
+        public IEnumerable<string> AmenitiesDescriptions { get; set; }
+        public string SourceReferenceId { get; set; }
     }
 }
