@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CTM.LoungeAccess.Models;
+using CTM.LoungeAccess.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,20 +24,25 @@ namespace CTM.LoungeAccess.Controllers
         [HttpGet("{id}", Name = "Get")]
         public Lounge Get(int id)
         {
-            var model = new Lounge();
 
-            model.Id = 5;
-            model.Title = "Qantas Club Lounge";
-            model.Description = "";
-            model.Terminal = "";
-            model.Directions = "";
-            model.ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg";
-            model.Rating = 0;
-            model.OpeningHours = new List<OpeningTime>();
-            model.AccessLink = 0;
-            model.Amenities = new List<Amenity>() { };
+            LoungeSearchService l = new LoungeSearchService();
 
-            return model;
+            var loungeItem = l.GetSearchResults().Where(q => q.Id == id).FirstOrDefault();
+
+            //var model = new Lounge();
+
+            //model.Id = 5;
+            //model.Title = "Qantas Club Lounge";
+            //model.Description = "";
+            //model.Terminal = "";
+            //model.Directions = "";
+            //model.ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg";
+            //model.Rating = 0;
+            //model.OpeningHours = new List<OpeningTime>();
+            //model.AccessLink = 0;
+            //model.Amenities = new List<Amenity>() { };
+
+            return loungeItem;
         }
 
         // POST: api/Lounge/search
