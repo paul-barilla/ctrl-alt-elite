@@ -39,6 +39,13 @@ namespace CTM.LoungeAccess.Controllers
             return model;
         }
 
+        // POST: api/Lounge/search
+        [HttpPost]
+        public void Post([FromBody] SearchRequest searchRequest)
+        {
+            
+        }
+
         // POST: api/Lounge
         [HttpPost]
         public void Post([FromBody] string value)
