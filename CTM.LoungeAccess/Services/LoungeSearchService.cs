@@ -19,19 +19,19 @@ namespace CTM.LoungeAccess.Services
             {
                 new Lounge
                 {
+                    Id = 1,
+                    Title = "Qantas Club Lounge",
 
                 },
                 new Lounge
                 {
-
+                    Id = 2,
+                    Title = "American Express Lounge",
                 },
                 new Lounge
                 {
-
-                },
-                new Lounge
-                {
-
+                    Id = 3,
+                    Title = "Etihad Airways First And Business Class Lounge",
                 }
             };
 
