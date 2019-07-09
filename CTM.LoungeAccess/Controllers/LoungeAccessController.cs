@@ -33,7 +33,7 @@ namespace CTM.LoungeAccess.Controllers
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
-            var la = new LoungeAccessCode() { LoungeId = lounge.Id, Title = lounge.Title, QRCodeImage = qrCodeImage };
+            var la = new LoungeAccessCode() { LoungeId = lounge.Id, Title = lounge.Title, QRCodeImage = qrCodeImage.ToString() };
             return Ok(la);
         }
 
