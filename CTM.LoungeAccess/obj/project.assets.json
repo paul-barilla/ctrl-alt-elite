@@ -12531,11 +12531,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Data\\Code\\CTM.LoungeAccess\\CTM.LoungeAccess\\CTM.LoungeAccess.csproj",
+      "projectUniqueName": "C:\\Data\\Code\\ctrl-alt-elite\\CTM.LoungeAccess\\CTM.LoungeAccess.csproj",
       "projectName": "CTM.LoungeAccess",
-      "projectPath": "C:\\Data\\Code\\CTM.LoungeAccess\\CTM.LoungeAccess\\CTM.LoungeAccess.csproj",
+      "projectPath": "C:\\Data\\Code\\ctrl-alt-elite\\CTM.LoungeAccess\\CTM.LoungeAccess.csproj",
       "packagesPath": "C:\\Users\\dean.ashton\\.nuget\\packages\\",
-      "outputPath": "C:\\Data\\Code\\CTM.LoungeAccess\\CTM.LoungeAccess\\obj\\",
+      "outputPath": "C:\\Data\\Code\\ctrl-alt-elite\\CTM.LoungeAccess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

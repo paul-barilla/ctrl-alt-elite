@@ -7,15 +7,16 @@ namespace CTM.LoungeAccess.Models
 {
     public class Lounge
     {
-        //public int Id { get; set; }
-        //public string Title { get; set; }
-        //public string Description { get; set; }
-        //public IEnumerable<AmenityEnum> Amenities { get; set; }
-        //public int Id { get; set; }
-        //public int Id { get; set; }
-        //public int Id { get; set; }
-        //public int Id { get; set; }
-        //public int Id { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Terminal { get; set; }
+        public string Directions { get; set; }
+        public string ImageUrl { get; set; }
+        public int Rating { get; set; }
+        public IEnumerable<OpeningTime> OpeningHours { get; set; }
+        public int AccessLink { get; set; }
+        public IEnumerable<Amenity> Amenities { get; set; }
 
     }
 }
