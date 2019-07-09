@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace CTM.LoungeAccess.Services
 {
-    public class LoungeSearchService : ILoungeAccessService
+    public class LoungeSearchService : ILoungeSearchService
     {
         public LoungeSearchService()
         {
 
         }
 
-        public IEnumerable<Lounge> GetSearchResults()
+        public Lounge GetById(int loungeId)
+        {
+            return GetLounges().Where(x => x.Id == loungeId).FirstOrDefault();
+        }
+
+        public IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest)
+        {
+            return GetLounges();
+        }
+
+        private IEnumerable<Lounge> GetLounges()
         {
             return new List<Lounge>()
             {
@@ -40,12 +50,12 @@ namespace CTM.LoungeAccess.Services
                     Title = "Etihad Airways First And Business Class Lounge",
                 }
             };
-
         }
     }
 
-    public interface ILoungeAccessService
+    public interface ILoungeSearchService
     {
-
+        IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest);
+        Lounge GetById(int loungeId);
     }
 }
