@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTM.LoungeAccess.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,22 @@ namespace CTM.LoungeAccess.Controllers
 
         // GET: api/Lounge/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Lounge Get(int id)
         {
-            return "value";
+            var model = new Lounge();
+
+            model.Id = 5;
+            model.Title = "Qantas Club Lounge";
+            model.Description = "";
+            model.Terminal = "";
+            model.Directions = "";
+            model.ImageUrl = "";
+            model.Rating = 0;
+            model.OpeningHours = new List<OpeningTime>();
+            model.AccessLink = 0;
+            model.Amenities = new List<Amenity>() { };
+
+            return model;
         }
 
         // POST: api/Lounge
