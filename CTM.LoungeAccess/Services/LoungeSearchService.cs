@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CTM.LoungeAccess.Extensions;
 using CTM.LoungeAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace CTM.LoungeAccess.Services
             var lounges = GetLounges();
 
             //filter by amenities
-            if (!searchRequest.Amenities.Any())
+            if (searchRequest.Amenities.IsNullOrEmpty())
             {
                 results.AddRange(lounges);
             }
