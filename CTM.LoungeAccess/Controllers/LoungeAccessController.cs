@@ -22,7 +22,7 @@ namespace CTM.LoungeAccess.Controllers
         public ActionResult Get(int loungeId)
         {
             var service = new LoungeSearchService();
-            var lounge = service.GetLoungeById(loungeId);
+            var lounge = service.GetById(loungeId);
             if (lounge == null)
             {
                 BadRequest($"Unknown Lounge with ID {loungeId}");
