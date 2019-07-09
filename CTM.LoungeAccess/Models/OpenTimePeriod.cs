@@ -8,10 +8,7 @@ namespace CTM.LoungeAccess.Models
     public class OpeningTime
     {
         public string Weekday { get; set; }
-        public DateTime Open { get; set; }
-        public DateTime Close { get; set; }
-
-        public string OpenHour { get; set; }
-        public string CloseHour { get; set; }
+        public string Opens { get; set; }
+        public string Closes { get; set; }
     }
 }

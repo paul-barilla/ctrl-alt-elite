@@ -15,7 +15,7 @@ namespace CTM.LoungeAccess.Models
         public string ImageUrl { get; set; }
         public int Rating { get; set; }
         public IEnumerable<OpeningTime> OpeningHours { get; set; }
-        public int AccessLink { get; set; }
+        public string AccessLink { get; set; }
         public IEnumerable<string> Amenities { get; set; }
     }
 }

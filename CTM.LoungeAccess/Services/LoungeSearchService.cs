@@ -22,7 +22,35 @@ namespace CTM.LoungeAccess.Services
 
         public IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest)
         {
-            return GetLounges();
+            var results = new List<Lounge>();
+            var lounges = GetLounges();
+
+            //filter by amenities
+            if (!searchRequest.Amenities.Any())
+            {
+                results.AddRange(lounges);
+            }
+            else
+            {
+                foreach(var lounge in lounges)
+                {
+                    //loop thru all amenities and check for them
+                    var allAmenitiesFound = true;
+                    foreach(var amenity in searchRequest.Amenities)
+                    {
+                        if (!lounge.Amenities.Contains(amenity)) 
+                        {
+                            allAmenitiesFound = false;
+                        }
+                    }
+                    //only add if the lounge has all the amentites the user was searching for
+                    if (allAmenitiesFound)
+                    {
+                        results.Add(lounge);
+                    }
+                }
+            }
+            return lounges;
         }
 
         public async Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest)
@@ -108,7 +136,7 @@ namespace CTM.LoungeAccess.Services
             var days = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
             foreach(var day in days)
             {
-                times.Add(new OpeningTime() { Weekday = day, OpenHour = "start", CloseHour = end });
+                times.Add(new OpeningTime() { Weekday = day, Opens = start, Closes = end });
             }
             return times;
         }
