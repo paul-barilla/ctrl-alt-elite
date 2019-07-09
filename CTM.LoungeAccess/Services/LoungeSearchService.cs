@@ -47,9 +47,8 @@ namespace CTM.LoungeAccess.Services
                     Directions = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. ",
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { OpenHour="05:00", CloseHour="23:00" } },
-                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi },
-                    AmenitiesDescriptions = GetAmenitiies(new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi } )
+                    OpeningHours = GenerateOpeningHours("05:00", "23:00"),
+                    Amenities = GetAmenitiesById(1)
                 },
                 new Lounge
                 {
@@ -59,9 +58,8 @@ namespace CTM.LoungeAccess.Services
                     Terminal ="T1",
                     ImageUrl="https://www.americanexpress.com/content/dam/amex/idc/benefits/viajes/SYD_29671-AMX-Airport-016.jpg",
                     Rating =4,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { OpenHour="06:00", CloseHour="23:00" } },
-                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi },
-                    AmenitiesDescriptions = GetAmenitiies(new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi } )
+                    OpeningHours = GenerateOpeningHours("09:00","22:30"),
+                    Amenities = GetAmenitiesById(2)
                 },
                 new Lounge
                 {
@@ -72,26 +70,47 @@ namespace CTM.LoungeAccess.Services
                     Directions="",
                     ImageUrl="https://media.etihad.com/cms/webimage/BaseImage_Standard/Documents/Lounges/arrivals_standard.jpg.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { OpenHour="05:30", CloseHour="23:00" } },
-                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi },
-                    AmenitiesDescriptions = GetAmenitiies(new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi } )
+                    OpeningHours = GenerateOpeningHours("10:00","23:30"),
+                    Amenities = GetAmenitiesById(3)
                 }
             };
         }
 
-        private IEnumerable<string> GetAmenitiies(List<Amenity> ameneites) 
+        private IEnumerable<string> GetAmenitiesById(int id) 
         {
-            var list = new List<string>();
+            var amenities = new List<string>();
+            amenities.Add("Wifi");
 
-            foreach (var item in ameneites)
-            {
-                Amenity enumDisplayStatus = (Amenity)item;
-                string stringValue = enumDisplayStatus.ToString();
-                list.Add(stringValue);
+            switch (id) {
+                case 1:
+                    amenities.Add("Alcohol");
+                    amenities.Add("Printing");
+                    amenities.Add("Food");
+                    amenities.Add("Showers");
+                    break;
+                case 2:
+                    amenities.Add("Alcohol");
+                    amenities.Add("Food");
+                    break;
+                case 3:
+                    amenities.Add("Alcohol");
+                    amenities.Add("Food");
+                    amenities.Add("Showers");
+                    break;
             }
 
-            return list;
+            return amenities;
+        }
 
+        private IEnumerable<OpeningTime> GenerateOpeningHours(string start, string end)
+        {
+            var times = new List<OpeningTime>();
+            var days = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            foreach(var day in days)
+            {
+                times.Add(new OpeningTime() { Weekday = day, OpenHour = "start", CloseHour = end });
+            }
+            return times;
         }
     }
 
