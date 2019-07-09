@@ -27,7 +27,7 @@ namespace CTM.LoungeAccess.Controllers
         }
 
         // GET: api/Lounge/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Lounge Get(int id)
         {
             var loungeItem = _loungeSearchService.GetById(id);

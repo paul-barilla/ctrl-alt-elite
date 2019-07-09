@@ -19,13 +19,13 @@ namespace CTM.LoungeAccess.Controllers
     {
         // GET: api/LoungeAccess/5
         [HttpGet("{id}")]
-        public ActionResult Get(int loungeId)
+        public ActionResult Get(int id)
         {
             var service = new LoungeSearchService();
-            var lounge = service.GetById(loungeId);
+            var lounge = service.GetById(id);
             if (lounge == null)
             {
-                BadRequest($"Unknown Lounge with ID {loungeId}");
+                BadRequest($"Unknown Lounge with ID {id}");
             }
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
