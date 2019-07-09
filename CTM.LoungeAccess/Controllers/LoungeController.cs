@@ -41,6 +41,13 @@ namespace CTM.LoungeAccess.Controllers
             return _loungeSearchService.GetSearchResults(searchRequest);
         }
 
+        // POST: api/Lounge/search/google
+        [HttpPost("search/google")]
+        public async Task<IEnumerable<Lounge>> PostAsync([FromBody] SearchRequest searchRequest)
+        {
+            return await _loungeSearchService.GetSearchResultsFromGoogleAsync(searchRequest);
+        }
+
         // POST: api/Lounge
         [HttpPost]
         public void Post([FromBody] string value)

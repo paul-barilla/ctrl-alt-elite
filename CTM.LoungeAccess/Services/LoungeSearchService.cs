@@ -8,9 +8,11 @@ namespace CTM.LoungeAccess.Services
 {
     public class LoungeSearchService : ILoungeSearchService
     {
+        private readonly IGooglePlacesService _googlePlacesService;
+
         public LoungeSearchService()
         {
-
+            _googlePlacesService = new GooglePlacesService();
         }
 
         public Lounge GetById(int loungeId)
@@ -21,6 +23,15 @@ namespace CTM.LoungeAccess.Services
         public IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest)
         {
             return GetLounges();
+        }
+
+        public async Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest)
+        {
+            var queryString = $"{searchRequest.AirportCode} airport lounges";
+
+            await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+
+            return await Task.FromResult(new List<Lounge>());
         }
 
         private IEnumerable<Lounge> GetLounges()
@@ -86,6 +97,7 @@ namespace CTM.LoungeAccess.Services
 
     public interface ILoungeSearchService
     {
+        Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest);
         IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest);
         Lounge GetById(int loungeId);
     }
