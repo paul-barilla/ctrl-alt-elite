@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CTM.LoungeAccess.Models;
+using CTM.LoungeAccess.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +22,20 @@ namespace CTM.LoungeAccess.Controllers
 
         // GET: api/Lounge/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Lounge Get(int id)
         {
-            return "value";
+            LoungeSearchService l = new LoungeSearchService();
+
+            var loungeItem = l.GetSearchResults().Where(q => q.Id == id).FirstOrDefault();
+
+            return loungeItem;
+        }
+
+        // POST: api/Lounge/search
+        [HttpPost]
+        public void Post([FromBody] SearchRequest searchRequest)
+        {
+            
         }
 
         // POST: api/Lounge
