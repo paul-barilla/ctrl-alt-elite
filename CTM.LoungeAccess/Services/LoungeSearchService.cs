@@ -54,7 +54,7 @@ namespace CTM.LoungeAccess.Services
 
         public Lounge GetLoungeById(int loungeId)
         {
-            var lounge = this.GetSearchResults().FirstOrDefault(l => l.Id == loungeId);
+            var lounge = this.GetLounges().FirstOrDefault(l => l.Id == loungeId);
             return lounge;
         }
 
