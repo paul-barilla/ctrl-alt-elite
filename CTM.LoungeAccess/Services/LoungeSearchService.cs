@@ -47,9 +47,9 @@ namespace CTM.LoungeAccess.Services
         {
             var queryString = $"{searchRequest.AirportCode} airport lounges";
 
-            await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+            var response = await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+            return _mapper.Map<IEnumerable<Lounge>>(response.Results);
 
-            return await Task.FromResult(new List<Lounge>());
         }
 
         private IEnumerable<Lounge> FilterByAmenities(IEnumerable<Lounge> lounges, IEnumerable<string> searchAmenities)
