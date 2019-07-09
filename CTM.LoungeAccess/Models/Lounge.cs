@@ -18,5 +18,7 @@ namespace CTM.LoungeAccess.Models
         public int AccessLink { get; set; }
         public IEnumerable<Amenity> Amenities { get; set; }
 
+        public IEnumerable<string> AmenitiesDescriptions { get; set; }
+
     }
 }

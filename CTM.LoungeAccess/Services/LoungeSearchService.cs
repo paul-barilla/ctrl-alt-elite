@@ -36,8 +36,9 @@ namespace CTM.LoungeAccess.Services
                     Directions = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. ",
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() {} },
-                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi }
+                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { OpenHour="05:00", CloseHour="23:00" } },
+                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi },
+                    AmenitiesDescriptions = GetAmenitiies(new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi } )
                 },
                 new Lounge
                 {
@@ -52,7 +53,20 @@ namespace CTM.LoungeAccess.Services
             };
         }
 
+        private IEnumerable<string> GetAmenitiies(List<Amenity> ameneites) 
+        {
+            var list = new List<string>();
 
+            foreach (var item in ameneites)
+            {
+                Amenity enumDisplayStatus = (Amenity)item;
+                string stringValue = enumDisplayStatus.ToString();
+                list.Add(stringValue);
+            }
+
+            return list;
+
+        }
     }
 
     public interface ILoungeSearchService
