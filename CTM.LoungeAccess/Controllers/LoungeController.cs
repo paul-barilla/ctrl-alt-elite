@@ -30,7 +30,7 @@ namespace CTM.LoungeAccess.Controllers
             model.Description = "";
             model.Terminal = "";
             model.Directions = "";
-            model.ImageUrl = "";
+            model.ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg";
             model.Rating = 0;
             model.OpeningHours = new List<OpeningTime>();
             model.AccessLink = 0;
