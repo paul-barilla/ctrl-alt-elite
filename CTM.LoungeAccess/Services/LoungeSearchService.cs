@@ -37,44 +37,48 @@ namespace CTM.LoungeAccess.Services
             }
             else
             {
-                results = FilterByAmenities(lounges, searchRequest.Amenities).ToList();
+                foreach(var lounge in lounges)
+                {
+                    //loop thru all amenities and check for them
+                    var allAmenitiesFound = true;
+                    foreach(var amenity in searchRequest.Amenities)
+                    {
+                        if (!lounge.Amenities.Contains(amenity)) 
+                        {
+                            allAmenitiesFound = false;
+                        }
+                    }
+                    //only add if the lounge has all the amentites the user was searching for
+                    if (allAmenitiesFound)
+                    {
+                        results.Add(lounge);
+                    }
+                }
             }
-
-            return results;
+            return lounges;
         }
 
         public async Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest)
         {
             var queryString = $"{searchRequest.AirportCode} airport lounges";
 
-            var response = await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
-            return _mapper.Map<IEnumerable<Lounge>>(response.Results);
-
+            var response = await _googlePlacesService.GetPlacesFromTextQueryAsync(queryString);
+            var lounges = _mapper.Map<IEnumerable<Lounge>>(response.Results);
+            return await PopulateLoungeDetails(lounges);
         }
 
-        private IEnumerable<Lounge> FilterByAmenities(IEnumerable<Lounge> lounges, IEnumerable<string> searchAmenities)
+        private async Task<IEnumerable<Lounge>> PopulateLoungeDetails(IEnumerable<Lounge> lounges)
         {
-            var results = new List<Lounge>();
+            if (lounges.IsNullOrEmpty())
+                return lounges;
 
-            foreach (var lounge in lounges)
+            var detailedLounges = new List<Lounge>();
+            foreach(var lounge in lounges)
             {
-                //loop thru all amenities and check for them
-                var allAmenitiesFound = true;
-                foreach (var amenity in searchAmenities)
-                {
-                    if (!lounge.Amenities.Contains(amenity))
-                    {
-                        allAmenitiesFound = false;
-                        break;
-                    }
-                }
-                //only add if the lounge has all the amentites the user was searching for
-                if (allAmenitiesFound)
-                {
-                    results.Add(lounge);
-                }
+                var response = await _googlePlacesService.GetPlaceDetailByIdAsync(lounge.SourceReferenceId);
+                detailedLounges.Add(_mapper.Map<Lounge>(response.Result));
             }
-            return results;
+            return detailedLounges;
         }
 
         private IEnumerable<Lounge> GetLounges()

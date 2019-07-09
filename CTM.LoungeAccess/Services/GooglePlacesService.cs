@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GoogleApi;
 using GoogleApi.Entities.Places;
 using PlacesTextSearchResponse = GoogleApi.Entities.Places.Search.Text.Response.PlacesTextSearchResponse;
+using PlacesDetailsResponse = GoogleApi.Entities.Places.Details.Response.PlacesDetailsResponse;
 
 namespace CTM.LoungeAccess.Services
 {
@@ -15,7 +16,7 @@ namespace CTM.LoungeAccess.Services
 
         }
         
-        public async Task<PlacesTextSearchResponse> GetAirportLoungesFromTextQueryAsync(string query)
+        public async Task<PlacesTextSearchResponse> GetPlacesFromTextQueryAsync(string query)
         {
             var request = new GoogleApi.Entities.Places.Search.Text.Request.PlacesTextSearchRequest()
             {              
@@ -25,10 +26,25 @@ namespace CTM.LoungeAccess.Services
 
             return await GooglePlaces.TextSearch.QueryAsync(request);
         }
+
+        public async Task<PlacesDetailsResponse> GetPlaceDetailByIdAsync(string placeId)
+        {
+            var request = new GoogleApi.Entities.Places.Details.Request.PlacesDetailsRequest()
+            {
+                PlaceId = placeId,
+                Key = "AIzaSyAa-Cb3X-JCgyiUWJ_W3_npAc-T5tI0xjg",
+                Fields = GoogleApi.Entities.Places.Details.Request.Enums.FieldTypes.Basic |
+                         GoogleApi.Entities.Places.Details.Request.Enums.FieldTypes.Contact |
+                         GoogleApi.Entities.Places.Details.Request.Enums.FieldTypes.Atmosphere
+            };
+
+            return await GooglePlaces.Details.QueryAsync(request);
+        }
     }
 
     public interface IGooglePlacesService
     {
-        Task<PlacesTextSearchResponse> GetAirportLoungesFromTextQueryAsync(string query);
+        Task<PlacesTextSearchResponse> GetPlacesFromTextQueryAsync(string query);
+        Task<PlacesDetailsResponse> GetPlaceDetailByIdAsync(string placeId);
     }
 }

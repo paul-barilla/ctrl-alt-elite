@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CTM.LoungeAccess.Models
 {
@@ -15,9 +12,14 @@ namespace CTM.LoungeAccess.Models
         public string ImageUrl { get; set; }
         public double Rating { get; set; }
         public IEnumerable<OpeningTime> OpeningHours { get; set; }
+        public IEnumerable<string> FormattedOpeningHours { get; set; }
         public int AccessLink { get; set; }
         public IEnumerable<string> Amenities { get; set; }
         public IEnumerable<string> AmenitiesDescriptions { get; set; }
         public string SourceReferenceId { get; set; }
+        public int UserRatingsTotal { get; set; }
+        public string MapLink { get; set; }
+        public IEnumerable<string> Images { get; set; }
+        public string Website { get; set; }
     }
 }
