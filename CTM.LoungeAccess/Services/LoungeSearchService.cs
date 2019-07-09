@@ -27,7 +27,7 @@ namespace CTM.LoungeAccess.Services
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
                     OpeningHours = new List<OpeningTime>() { new OpeningTime() {} },
-                    Amenities = new List<Amenity>()
+                    Amenities = new List<Amenity>() { Amenity.Alcohol, Amenity.Food, Amenity.Printing, Amenity.Showers, Amenity.Wifi }
                 },
                 new Lounge
                 {
