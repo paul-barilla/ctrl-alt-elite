@@ -23,10 +23,10 @@ namespace CTM.LoungeAccess.Services
                     Title = "Qantas Club Lounge",
                     Description = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. It is accessible via escalators and lift. For information about airline lounges and eligibility requirements, please contact your airline.",
                     Terminal="T1",
-                    Directions = "",
+                    Directions = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. ",
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() {},
+                    OpeningHours = new List<OpeningTime>() { new OpeningTime() {} },
                     Amenities = new List<Amenity>()
                 },
                 new Lounge
