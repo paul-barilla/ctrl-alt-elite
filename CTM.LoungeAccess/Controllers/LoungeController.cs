@@ -13,6 +13,12 @@ namespace CTM.LoungeAccess.Controllers
     [ApiController]
     public class LoungeController : ControllerBase
     {
+        private readonly ILoungeSearchService _loungeSearchService;
+
+        public LoungeController()
+        {
+            _loungeSearchService = new LoungeSearchService();
+        }
         // GET: api/Lounge
         [HttpGet]
         public IEnumerable<string> Get()
@@ -24,18 +30,15 @@ namespace CTM.LoungeAccess.Controllers
         [HttpGet("{id}", Name = "Get")]
         public Lounge Get(int id)
         {
-            LoungeSearchService l = new LoungeSearchService();
-
-            var loungeItem = l.GetSearchResults().Where(q => q.Id == id).FirstOrDefault();
-
+            var loungeItem = _loungeSearchService.GetById(id);
             return loungeItem;
         }
 
         // POST: api/Lounge/search
         [HttpPost]
-        public void Post([FromBody] SearchRequest searchRequest)
+        public IEnumerable<Lounge> Post([FromBody] SearchRequest searchRequest)
         {
-            
+            return _loungeSearchService.GetSearchResults(searchRequest);
         }
 
         // POST: api/Lounge
