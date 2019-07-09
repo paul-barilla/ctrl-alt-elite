@@ -8,8 +8,7 @@ namespace CTM.LoungeAccess.Models
     public class SearchRequest
     {
         public string AirportCode { get; set; }
-        
-        public Dictionary<string, string> Amenities { get; set; }
-        
+
+        public IEnumerable<string> Amenities { get; set; }
     }
 }

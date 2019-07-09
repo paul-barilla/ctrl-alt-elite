@@ -35,7 +35,7 @@ namespace CTM.LoungeAccess.Controllers
         }
 
         // POST: api/Lounge/search
-        [HttpPost]
+        [HttpPost("search")]
         public IEnumerable<Lounge> Post([FromBody] SearchRequest searchRequest)
         {
             return _loungeSearchService.GetSearchResults(searchRequest);
