@@ -3,6 +3,7 @@ using CTM.LoungeAccess.Extensions;
 using CTM.LoungeAccess.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,33 +37,44 @@ namespace CTM.LoungeAccess.Services
             }
             else
             {
-                foreach(var lounge in lounges)
-                {
-                    //loop thru all amenities and check for them
-                    var allAmenitiesFound = true;
-                    foreach(var amenity in searchRequest.Amenities)
-                    {
-                        if (!lounge.Amenities.Contains(amenity)) 
-                        {
-                            allAmenitiesFound = false;
-                        }
-                    }
-                    //only add if the lounge has all the amentites the user was searching for
-                    if (allAmenitiesFound)
-                    {
-                        results.Add(lounge);
-                    }
-                }
+                results = FilterByAmenities(lounges, searchRequest.Amenities).ToList();
             }
-            return lounges;
+
+            return results;
         }
 
         public async Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest)
         {
             var queryString = $"{searchRequest.AirportCode} airport lounges";
 
-            var response = await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
-            return _mapper.Map<IEnumerable<Lounge>>(response.Results);
+            await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
+
+            return await Task.FromResult(new List<Lounge>());
+        }
+
+        private IEnumerable<Lounge> FilterByAmenities(IEnumerable<Lounge> lounges, IEnumerable<string> searchAmenities)
+        {
+            var results = new List<Lounge>();
+
+            foreach (var lounge in lounges)
+            {
+                //loop thru all amenities and check for them
+                var allAmenitiesFound = true;
+                foreach (var amenity in searchAmenities)
+                {
+                    if (!lounge.Amenities.Contains(amenity))
+                    {
+                        allAmenitiesFound = false;
+                        break;
+                    }
+                }
+                //only add if the lounge has all the amentites the user was searching for
+                if (allAmenitiesFound)
+                {
+                    results.Add(lounge);
+                }
+            }
+            return results;
         }
 
         private IEnumerable<Lounge> GetLounges()
@@ -127,7 +139,6 @@ namespace CTM.LoungeAccess.Services
                     amenities.Add("Food");
                     break;
                 case 3:
-                    amenities.Add("Alcohol");
                     amenities.Add("Food");
                     amenities.Add("Showers");
                     break;
