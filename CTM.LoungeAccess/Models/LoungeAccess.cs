@@ -9,7 +9,8 @@ namespace CTM.LoungeAccess.Models
     public class LoungeAccessCode
     {
         public int LoungeId { get; set; }
-        public string Title { get; set; }
+        public string LoungeTitle { get; set; }
+        public int LoungeAccessId { get; set; }
         public string QRCode { get; set; }
     }
 }
