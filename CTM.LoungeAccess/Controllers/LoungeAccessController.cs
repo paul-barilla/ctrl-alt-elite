@@ -29,10 +29,10 @@ namespace CTM.LoungeAccess.Controllers
         }
         // GET: api/LoungeAccess/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public ActionResult Get(int id, string airportCode)
         {
             var lacs = new List<LoungeAccessCode>();
-            var lounges = _loungeSearchService.GetSearchResults(new SearchRequest() { AirportCode = "SYD", Amenities = new List<string>() });
+            var lounges = _loungeSearchService.GetSearchResults(new SearchRequest() { AirportCode = airportCode, Amenities = new List<string>() });
             foreach(var lounge in lounges)
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
