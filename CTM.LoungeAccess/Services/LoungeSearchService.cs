@@ -62,10 +62,6 @@ namespace CTM.LoungeAccess.Services
 
             var response = await _googlePlacesService.GetAirportLoungesFromTextQueryAsync(queryString);
             return _mapper.Map<IEnumerable<Lounge>>(response.Results);
-            //response.Results.FirstOrDefault();
-
-            
-            //return await Task.FromResult(new List<Lounge>());
         }
 
         private IEnumerable<Lounge> GetLounges()
