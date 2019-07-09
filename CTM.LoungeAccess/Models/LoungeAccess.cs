@@ -10,6 +10,6 @@ namespace CTM.LoungeAccess.Models
     {
         public int LoungeId { get; set; }
         public string Title { get; set; }
-        public string QRCodeImage { get; set; }
+        public string QRCode { get; set; }
     }
 }

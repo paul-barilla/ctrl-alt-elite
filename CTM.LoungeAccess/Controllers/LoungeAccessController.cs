@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
 
 namespace CTM.LoungeAccess.Controllers
 {
@@ -30,10 +32,10 @@ namespace CTM.LoungeAccess.Controllers
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(lounge.Title, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+            var qrCode = new Base64QRCode(qrCodeData);
+            var qrCodeImage = qrCode.GetGraphic(20);
 
-            var la = new LoungeAccessCode() { LoungeId = lounge.Id, Title = lounge.Title, QRCodeImage = qrCodeImage.ToString() };
+            var la = new LoungeAccessCode() { LoungeId = lounge.Id, Title = lounge.Title, QRCode = qrCodeImage };
             return Ok(la);
         }
 
