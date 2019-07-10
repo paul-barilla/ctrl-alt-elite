@@ -94,7 +94,7 @@ namespace CTM.LoungeAccess.Services
                     Directions = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. ",
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    OpeningHours = GenerateOpeningHours("05:00","22:30"),
                     Amenities =  GetAmenitiesById(1)
                     },
                 new Lounge
@@ -105,7 +105,7 @@ namespace CTM.LoungeAccess.Services
                     Terminal ="T1",
                     ImageUrl="https://www.americanexpress.com/content/dam/amex/idc/benefits/viajes/SYD_29671-AMX-Airport-016.jpg",
                     Rating =4,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    OpeningHours = GenerateOpeningHours("08:00","22:00"),
                     Amenities =  GetAmenitiesById(2)
                 },
                 new Lounge
@@ -117,7 +117,7 @@ namespace CTM.LoungeAccess.Services
                     Directions="",
                     ImageUrl="https://media.etihad.com/cms/webimage/BaseImage_Standard/Documents/Lounges/arrivals_standard.jpg.jpg",
                     Rating=5,
-                    OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
+                    OpeningHours = GenerateOpeningHours("05:30","23:00"),
                     Amenities =  GetAmenitiesById(3)
                 }
             };
