@@ -18,9 +18,9 @@ namespace CTM.LoungeAccess.Configuration
         public void SetupGooglePlacesDomainMappings()
         {
             CreateMap<TextResult, Lounge>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.PlaceId))
                 .ForMember(dest => dest.Title, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Rating, opts => opts.MapFrom(src => src.Rating))
-                .ForMember(dest => dest.SourceReferenceId, opts => opts.MapFrom(src => src.PlaceId))
                 .ForMember(dest => dest.Amenities, opts => opts.MapFrom(src => src.Types.Where(x => x.HasValue).Select(x => x.Value.ToString())))
                 .ForMember(dest => dest.ImageUrl, opts =>
                 {
@@ -31,9 +31,9 @@ namespace CTM.LoungeAccess.Configuration
                 .ForAllOtherMembers(dest => dest.Ignore());
 
             CreateMap<DetailsResult, Lounge>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.PlaceId))
                 .ForMember(dest => dest.Title, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Rating, opts => opts.MapFrom(src => src.Rating))
-                .ForMember(dest => dest.SourceReferenceId, opts => opts.MapFrom(src => src.PlaceId))
                 .ForMember(dest => dest.UserRatingsTotal, opts => opts.MapFrom(src => src.UserRatingsTotal))
                 .ForMember(dest => dest.Description, opts => opts.MapFrom(src => src.FormattedAddress))
                 .ForMember(dest => dest.Website, opts => opts.MapFrom(src => src.Website))

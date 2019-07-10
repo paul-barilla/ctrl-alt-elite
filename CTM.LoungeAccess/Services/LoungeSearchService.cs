@@ -20,7 +20,7 @@ namespace CTM.LoungeAccess.Services
             _mapper = mapper;
         }
 
-        public Lounge GetById(int loungeId)
+        public Lounge GetById(string loungeId)
         {
             return GetLounges().Where(x => x.Id == loungeId).FirstOrDefault();
         }
@@ -75,7 +75,7 @@ namespace CTM.LoungeAccess.Services
             var detailedLounges = new List<Lounge>();
             foreach(var lounge in lounges)
             {
-                var response = await _googlePlacesService.GetPlaceDetailByIdAsync(lounge.SourceReferenceId);
+                var response = await _googlePlacesService.GetPlaceDetailByIdAsync(lounge.Id);
                 detailedLounges.Add(_mapper.Map<Lounge>(response.Result));
             }
             return detailedLounges;
@@ -87,7 +87,7 @@ namespace CTM.LoungeAccess.Services
             {
                 new Lounge
                 {
-                    Id = 1,
+                    Id = "qantas_club_syd",
                     Title = "Qantas Club Lounge",
                     Description = "The Qantas Club Lounge at International Terminal (T1) is located after Customs on Mezzanine level. It is accessible via escalators and lift. For information about airline lounges and eligibility requirements, please contact your airline.",
                     Terminal="T1",
@@ -99,7 +99,7 @@ namespace CTM.LoungeAccess.Services
                     },
                 new Lounge
                 {
-                    Id = 2,
+                    Id = "amex_lounge_syd",
                     Title = "American Express Lounge",
                     Description="The American Express Lounge is located in the Terminal 1 departure level, adjacent to Gate 24. Created just for American Express Card Members, the lounge offers world -class, exclusive services and amenities such as complimentary gourmet seasonal dining options, a premium bar featuring a selection of local and international wines, beers and cocktails, barista-made coffees, high speed Wi-Fi and everything else you’d expect to find in a luxurious, serene and premium airport lounge. To gain entry, simply present your eligible American Express Card and same-day boarding pass at reception located near Gate 24. The American Express Lounge can be contacted on 9693 4555/6",
                     Terminal ="T1",
@@ -110,7 +110,7 @@ namespace CTM.LoungeAccess.Services
                 },
                 new Lounge
                 {
-                    Id = 3,
+                    Id = "etihad_lounge_syd",
                     Title = "Etihad Airways First And Business Class Lounge",
                     Description="The House is the home of jet set lounging - take a seat and enjoy the atmosphere. Entry to The House includes: White linen, à la carte dining with waiter service,Award-winning sparkling wines, classic cocktails & craft beer, Barista coffee, speciality teas and freshly-made smoothies & juices, Unlimited WiFi, quality newspapers and glossy magazines, Shower facilities,Unlimited WiFi, newspapers and magazines",
                     Terminal="T1",
@@ -164,6 +164,6 @@ namespace CTM.LoungeAccess.Services
     {
         Task<IEnumerable<Lounge>> GetSearchResultsFromGoogleAsync(SearchRequest searchRequest);
         IEnumerable<Lounge> GetSearchResults(SearchRequest searchRequest);
-        Lounge GetById(int loungeId);
+        Lounge GetById(string loungeId);
     }
 }

@@ -39,8 +39,10 @@ namespace CTM.LoungeAccess.Controllers
                 QRCodeData qrCodeData = qrGenerator.CreateQrCode(lounge.Title, QRCodeGenerator.ECCLevel.Q);
                 var qrCode = new Base64QRCode(qrCodeData);
                 var qrCodeImage = qrCode.GetGraphic(20);
-               
-                var lac = new LoungeAccessCode() { LoungeId = lounge.Id, LoungeTitle = lounge.Title, LoungeAccessId = lounge.Id, QRCode = qrCodeImage };
+
+                Random random = new Random();
+                var randomLoungeAccessId = random.Next(1, 100);
+                var lac = new LoungeAccessCode() { LoungeId = lounge.Id, LoungeTitle = lounge.Title, LoungeAccessId = randomLoungeAccessId, QRCode = qrCodeImage };
                 lacs.Add(lac);
             }
 
@@ -53,24 +55,24 @@ namespace CTM.LoungeAccess.Controllers
             return Ok(found);
         }
 
-        // POST: api/LoungeAccess/5
-        [HttpPost("{id}")]
-        public ActionResult Post(int id)
-        {
-            var lounge = _loungeSearchService.GetById(id);
-            if (lounge == null)
-            {
-                BadRequest($"Could not match lounge for ID {id}");
-            }
+        //// POST: api/LoungeAccess/5
+        //[HttpPost("{id}")]
+        //public ActionResult Post(int id)
+        //{
+        //    var lounge = _loungeSearchService.GetById(id);
+        //    if (lounge == null)
+        //    {
+        //        BadRequest($"Could not match lounge for ID {id}");
+        //    }
 
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(lounge.Title, QRCodeGenerator.ECCLevel.Q);
-            var qrCode = new Base64QRCode(qrCodeData);
-            var qrCodeImage = qrCode.GetGraphic(20);
+        //    QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        //    QRCodeData qrCodeData = qrGenerator.CreateQrCode(lounge.Title, QRCodeGenerator.ECCLevel.Q);
+        //    var qrCode = new Base64QRCode(qrCodeData);
+        //    var qrCodeImage = qrCode.GetGraphic(20);
 
-            var la = new LoungeAccessCode() { LoungeId = lounge.Id, LoungeTitle = lounge.Title, LoungeAccessId = lounge.Id, QRCode = qrCodeImage };
-            return Ok(la);
-        }
+        //    var la = new LoungeAccessCode() { LoungeId = lounge.Id, LoungeTitle = lounge.Title, LoungeAccessId = 1, QRCode = qrCodeImage };
+        //    return Ok(la);
+        //}
 
 
     }
