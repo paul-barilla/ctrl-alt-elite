@@ -95,8 +95,7 @@ namespace CTM.LoungeAccess.Services
                     ImageUrl = "http://loungeindex.com/Oceania/Australia/SYD/qantas-first-lounge-sydney/qantas-first-lounge-sydney-1.jpg",
                     Rating=5,
                     OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
-                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
-                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    Amenities =  GetAmenitiesById(1)
                     },
                 new Lounge
                 {
@@ -107,8 +106,7 @@ namespace CTM.LoungeAccess.Services
                     ImageUrl="https://www.americanexpress.com/content/dam/amex/idc/benefits/viajes/SYD_29671-AMX-Airport-016.jpg",
                     Rating =4,
                     OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
-                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
-                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    Amenities =  GetAmenitiesById(2)
                 },
                 new Lounge
                 {
@@ -120,8 +118,7 @@ namespace CTM.LoungeAccess.Services
                     ImageUrl="https://media.etihad.com/cms/webimage/BaseImage_Standard/Documents/Lounges/arrivals_standard.jpg.jpg",
                     Rating=5,
                     OpeningHours = new List<OpeningTime>() { new OpeningTime() { Opens="05:30", Closes="23:00" } },
-                    Amenities =  new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
-                    AmenitiesDescriptions = new string[] { "Alcohol", "Food", "Printing", "Showers", "Wifi" },
+                    Amenities =  GetAmenitiesById(3)
                 }
             };
         }
