@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CTM.LoungeAccess.Models;
 using CTM.LoungeAccess.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CTM.LoungeAccess.Controllers
 {
@@ -19,12 +16,6 @@ namespace CTM.LoungeAccess.Controllers
         public LoungeController(IMapper mapper)
         {
             _loungeSearchService = new LoungeSearchService(mapper);
-        }
-        // GET: api/Lounge
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
         }
 
         // GET: api/Lounge/5
@@ -47,24 +38,6 @@ namespace CTM.LoungeAccess.Controllers
         public async Task<IEnumerable<Lounge>> PostAsync([FromBody] SearchRequest searchRequest)
         {
             return await _loungeSearchService.GetSearchResultsFromGoogleAsync(searchRequest);
-        }
-
-        // POST: api/Lounge
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Lounge/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

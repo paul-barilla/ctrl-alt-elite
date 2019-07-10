@@ -39,6 +39,7 @@ namespace CTM.LoungeAccess
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +55,8 @@ namespace CTM.LoungeAccess
                 app.UseHsts();
             }
 
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

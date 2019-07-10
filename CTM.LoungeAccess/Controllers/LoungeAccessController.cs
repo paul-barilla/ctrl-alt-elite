@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.DrawingCore;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CTM.LoungeAccess.Models;
 using CTM.LoungeAccess.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
-using ZXing;
-using ZXing.Common;
-using ZXing.QrCode;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CTM.LoungeAccess.Controllers
 {
