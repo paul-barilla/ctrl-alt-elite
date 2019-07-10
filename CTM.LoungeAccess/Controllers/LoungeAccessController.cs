@@ -20,32 +20,37 @@ namespace CTM.LoungeAccess.Controllers
             _loungeSearchService = new LoungeSearchService(mapper);
 
         }
+
         // GET: api/LoungeAccess/5
-        [HttpGet("{id}")]
-        public ActionResult Get(int id, string airportCode)
+        [HttpGet]
+        public ActionResult Get(string id, string airportCode)
         {
+            if (string.IsNullOrEmpty(id)) 
+                return BadRequest($"Could not find the lounge with ID {id}");
+            if (string.IsNullOrEmpty(id))
+                return BadRequest($"Could not find the airport code with ID {airportCode}");
+
             var lacs = new List<LoungeAccessCode>();
-            var lounges = _loungeSearchService.GetSearchResults(new SearchRequest() { AirportCode = airportCode, Amenities = new List<string>() });
-            foreach(var lounge in lounges)
-            {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrGenerator.CreateQrCode(lounge.Title, QRCodeGenerator.ECCLevel.Q);
-                var qrCode = new Base64QRCode(qrCodeData);
-                var qrCodeImage = qrCode.GetGraphic(20);
-
-                Random random = new Random();
-                var randomLoungeAccessId = random.Next(1, 100);
-                var lac = new LoungeAccessCode() { LoungeId = lounge.Id, LoungeTitle = lounge.Title, LoungeAccessId = randomLoungeAccessId, QRCode = qrCodeImage };
-                lacs.Add(lac);
-            }
-
-            var found = lacs.FirstOrDefault(l => l.LoungeAccessId == id);
+            var lounges = _loungeSearchService.GetSearchResultsAsync(new SearchRequest() { AirportCode = airportCode, Amenities = new List<string>() }).GetAwaiter().GetResult();
+            var found = lounges.FirstOrDefault(l => l.Id == id);
             if (found == null)
             {
                 return BadRequest($"Could not find the lounge access code for ID {id}");
             }
+            else
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(found.Title, QRCodeGenerator.ECCLevel.Q);
+                var qrCode = new Base64QRCode(qrCodeData);
+                var qrCodeImage = qrCode.GetGraphic(20);
 
-            return Ok(found);
+                //fake the id as if we were storing the lounge access code in a database
+                Random random = new Random();
+                var randomLoungeAccessId = random.Next(1, 100);
+
+                var lac = new LoungeAccessCode() { LoungeId = found.Id, LoungeTitle = found.Title, LoungeAccessId = randomLoungeAccessId, QRCode = qrCodeImage };
+                return Ok(lac);
+            }
         }
 
         //// POST: api/LoungeAccess/5

@@ -22,7 +22,7 @@ namespace CTM.LoungeAccess.Controllers
 
             ViewBag.AirportCode = string.IsNullOrEmpty(airportcode) ? "SYD" : airportcode;
 
-            var something = await _loungeSearchService.GetSearchResultsFromGoogleAsync(searchRequest);
+            var something = await _loungeSearchService.GetSearchResultsAsync(searchRequest);
 
             List<Lounge> list = new List<Lounge>();
             list = something.ToList();
