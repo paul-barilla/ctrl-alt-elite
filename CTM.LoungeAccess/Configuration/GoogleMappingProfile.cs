@@ -24,7 +24,7 @@ namespace CTM.LoungeAccess.Configuration
                 .ForMember(dest => dest.Amenities, opts => opts.MapFrom(src => src.Types.Where(x => x.HasValue).Select(x => x.Value.ToString())))
                 .ForMember(dest => dest.ImageUrl, opts =>
                 {
-                    opts.Condition(x => x.Photos.Any());
+                    opts.Condition(x => !x.Photos.IsNullOrEmpty());
 
                     opts.MapFrom(x => ImageFactory.GetGooglePlaceImageUrl(x.Photos.FirstOrDefault().PhotoReference));
                 })
