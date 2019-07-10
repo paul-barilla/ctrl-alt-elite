@@ -37,6 +37,11 @@ namespace CTM.LoungeAccess.Configuration
                 .ForMember(dest => dest.UserRatingsTotal, opts => opts.MapFrom(src => src.UserRatingsTotal))
                 .ForMember(dest => dest.Description, opts => opts.MapFrom(src => src.FormattedAddress))
                 .ForMember(dest => dest.Website, opts => opts.MapFrom(src => src.Website))
+                .ForMember(dest => dest.Location, opts => 
+                {
+                    opts.Condition(src => src.Geometry != null && src.Geometry.Location != null);
+                    opts.MapFrom(src => new Location(src.Geometry.Location.Latitude, src.Geometry.Location.Longitude));
+                })
                 .ForMember(dest => dest.Amenities, opts => 
                 {
                     opts.Condition(src => !src.Types.IsNullOrEmpty());
@@ -45,19 +50,16 @@ namespace CTM.LoungeAccess.Configuration
                 .ForMember(dest => dest.ImageUrl, opts =>
                 {
                     opts.Condition(src => !src.Photos.IsNullOrEmpty());
-
                     opts.MapFrom(src => ImageFactory.GetGooglePlaceImageUrl(src.Photos.FirstOrDefault().PhotoReference));
                 })
                 .ForMember(dest => dest.Images, opts =>
                 {
                     opts.Condition(src => !src.Photos.IsNullOrEmpty());
-
                     opts.MapFrom(src => src.Photos.Select(photo => ImageFactory.GetGooglePlaceImageUrl(photo.PhotoReference)));
                 })
                 .ForMember(dest => dest.FormattedOpeningHours, opts =>
                 {
                     opts.Condition(src => src.OpeningHours != null && !src.OpeningHours.WeekdayTexts.IsNullOrEmpty());
-
                     opts.MapFrom(src => src.OpeningHours.WeekdayTexts);
                 })
                 .ForMember(dest => dest.MapLink, opts => opts.MapFrom(src => src.Url))

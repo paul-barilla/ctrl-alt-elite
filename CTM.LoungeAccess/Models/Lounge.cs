@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace CTM.LoungeAccess.Models
 {
@@ -19,5 +20,29 @@ namespace CTM.LoungeAccess.Models
         public string MapLink { get; set; }
         public IEnumerable<string> Images { get; set; }
         public string Website { get; set; }
+        public Location Location { get; set; }
+    }
+
+    public class Location
+    {
+        public Location()
+        {
+
+        }
+
+        public Location(double latitude, double longitude)
+            : this()
+        {
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+        }
+
+        [JsonProperty("lat")]
+        public double Latitude { get; set; }
+
+
+        [JsonProperty("lng")]
+        public double Longitude { get; set; }
+        
     }
 }
